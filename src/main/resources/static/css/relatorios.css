@@ -1,0 +1,24 @@
+.relatorio{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container ul li button{
+    background-color: transparent;
+    border: none;
+    color: #3e3e3e;
+
+}
+
+.container ul li{
+    background: linear-gradient(to top, rgba(210,255,82,1) 0%, rgba(145,232,66,1) 100%);
+    border: none;
+    border-radius: 10px;
+
+}
+
+.container ul li:hover{
+    opacity:0.9;
+
+}
