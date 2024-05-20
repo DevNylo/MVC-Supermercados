@@ -1,6 +1,7 @@
 package com.supermarket.mvcsupermarket.Controller;
 
 import com.supermarket.mvcsupermarket.Entity.Employee;
+import com.supermarket.mvcsupermarket.Entity.Product;
 import com.supermarket.mvcsupermarket.Service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 
@@ -30,11 +32,6 @@ public class EmployeeController {
         return "./pages/funcionario"; // Redirecionar para uma página de sucesso
     }
 
-    @GetMapping("/relatorio")
-    public String relatorio(Model model) {
-        return "./pages/relatorio";
-    }
-
     @DeleteMapping("/employee/{id}")
     public ResponseEntity<Void> deleteEmployee(@PathVariable Integer id) {
         if (employeeService.deleteFuncionario(id)) {
@@ -42,6 +39,13 @@ public class EmployeeController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/employee/search")
+    public String searchEmployee(@RequestParam String query, Model model) {
+        List<Employee> employees = employeeService.searchEmployee(query);
+        model.addAttribute("employee", employees);
+        return "./pages/funcionario";
     }
 
 

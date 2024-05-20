@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Supermarket MVC</title>
-    <link rel="stylesheet" href="./css/funcionario.css">
-    <link rel="stylesheet" href="./css/materialize.css">
-    <link rel="stylesheet" href="./css/modals.css">
+    <link rel="stylesheet" href="/css/funcionario.css">
+    <link rel="stylesheet" href="/css/materialize.css">
+    <link rel="stylesheet" href="/css/modals.css">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
@@ -13,11 +13,11 @@
 <header>
     <menu>
         <ul>
-            <span><img src="./images/supermarket-logo.png" alt="Logo"></span>
-            <li class="hover"><a href="../index" target="_self"> INÍCIO</a></li>
-            <li class="hover"><a href="./employee" target="_self"> FUNCIONÁRIOS</a></li>
-            <li class="hover"><a href="./products" target="_self">PRODUTOS</a></li>
-            <li class="hover"><a href="./relatorio" target="_self">RELATÓRIOS</a></li>
+            <span><img src="/images/supermarket-logo.png" alt="Logo"></span>
+            <li class="hover"><a href="/index" target="_self"> INÍCIO</a></li>
+            <li class="hover"><a href="/employee" target="_self"> FUNCIONÁRIOS</a></li>
+            <li class="hover"><a href="/products" target="_self">PRODUTOS</a></li>
+            <li class="hover"><a href="/relatorio" target="_self">RELATÓRIOS</a></li>
         </ul>
         <div>
             <p>Developer by "Core TI"</p>
@@ -94,8 +94,8 @@
         </tr>
         <tr th:each="employee : ${employee}">
             <td>
-                <img class="user-detail" src="./images/user-detail.svg" alt="Modificar usuário">
-                <img class="user-remove" src="./images/user-remove.svg" alt="Remover usuário" th:attr="data-id=${employee.id}">
+                <img class="user-detail" src="/images/user-detail.svg" alt="Modificar usuário">
+                <img class="user-remove" src="/images/user-remove.svg" alt="Remover usuário" th:attr="data-id=${employee.id}">
             </td>
             <td th:text="${employee.id}"></td>
             <td th:text="${employee.nome}"></td>
@@ -111,7 +111,7 @@
 </section>
 
 
-<script src="./js/script.js"></script>
+<script src="/js/script.js"></script>
 <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {

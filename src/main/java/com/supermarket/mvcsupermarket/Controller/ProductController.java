@@ -30,6 +30,13 @@ public class ProductController {
         return "redirect:/products"; // Redirecionar após salvar
     }
 
+    @GetMapping("/search")
+    public String searchProducts(@RequestParam("query") String query, Model model) {
+        List<Product> products = productService.searchProducts(query);
+        model.addAttribute("products", products);
+        return "pages/produtos"; // Certifique-se de que este é o nome correto do template
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Integer id) {
         if (productService.deleteProduct(id)) {

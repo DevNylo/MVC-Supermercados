@@ -31,4 +31,9 @@ public class EmployeeService {
         }
     }
 
+    public List<Employee> searchEmployee(String query) {
+        List<Employee> employees = new ArrayList<>();
+        employees = employeeRepository.findByNomeContainingIgnoreCaseOrId(query, Integer.parseInt(query));
+        return employees;
+    }
 }
