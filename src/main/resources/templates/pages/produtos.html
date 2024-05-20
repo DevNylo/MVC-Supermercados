@@ -80,7 +80,7 @@
         <tr th:each="product : ${products}">
             <td>
                 <img class="user-detail" src="./images/user-detail.svg" alt="Modificar usuário">
-                <img class="user-remove" src="./images/user-remove.svg" alt="Remover usuário">
+                <img class="user-remove" src="./images/user-remove.svg" alt="Remover usuário" th:attr="data-id=${product.id}">
             </td>
             <td th:text="${product.id}"></td>
             <td th:text="${product.nome}"></td>
@@ -96,5 +96,31 @@
 
 <script src="./js/script.js"></script>
 <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll(".user-remove").forEach(button => {
+            button.addEventListener("click", function() {
+                const productId = this.getAttribute("data-id");
+
+                if (confirm("Tem certeza que deseja remover este produto?")) {
+                    fetch(`/products/${productId}`, {
+                        method: 'DELETE'
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            location.reload(); // Recarrega a página para atualizar a lista de produtos
+                        } else {
+                            alert("Erro ao remover produto.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Erro:", error);
+                        alert("Erro ao remover produto.");
+                    });
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

@@ -3,12 +3,10 @@ package com.supermarket.mvcsupermarket.Controller;
 import com.supermarket.mvcsupermarket.Entity.Employee;
 import com.supermarket.mvcsupermarket.Service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,5 +34,15 @@ public class EmployeeController {
     public String relatorio(Model model) {
         return "./pages/relatorio";
     }
+
+    @DeleteMapping("/employee/{id}")
+    public ResponseEntity<Void> deleteEmployee(@PathVariable Integer id) {
+        if (employeeService.deleteFuncionario(id)) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
 }

@@ -16,7 +16,7 @@
             <span><img src="./images/supermarket-logo.png" alt="Logo"></span>
             <li class="hover"><a href="../index" target="_self"> INÍCIO</a></li>
             <li class="hover"><a href="./employee" target="_self"> FUNCIONÁRIOS</a></li>
-            <li class="hover"><a href="./produtos" target="_self">PRODUTOS</a></li>
+            <li class="hover"><a href="./products" target="_self">PRODUTOS</a></li>
             <li class="hover"><a href="./relatorio" target="_self">RELATÓRIOS</a></li>
         </ul>
         <div>
@@ -95,7 +95,7 @@
         <tr th:each="employee : ${employee}">
             <td>
                 <img class="user-detail" src="./images/user-detail.svg" alt="Modificar usuário">
-                <img class="user-remove" src="./images/user-remove.svg" alt="Remover usuário">
+                <img class="user-remove" src="./images/user-remove.svg" alt="Remover usuário" th:attr="data-id=${employee.id}">
             </td>
             <td th:text="${employee.id}"></td>
             <td th:text="${employee.nome}"></td>
@@ -113,5 +113,31 @@
 
 <script src="./js/script.js"></script>
 <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll(".user-remove").forEach(button => {
+            button.addEventListener("click", function() {
+                const employeeId = this.getAttribute("data-id");
+
+                if (confirm("Tem certeza que deseja remover este funcionário?")) {
+                    fetch(`/employee/${employeeId}`, {
+                    method: 'DELETE'
+                })
+                .then(response => {
+                if (response.ok) {
+                    location.reload(); // Recarrega a página para atualizar a lista de funcionários
+                } else {
+                    alert("Erro ao remover funcionário.");
+                }
+                })
+                .catch(error => {
+                console.error("Erro:", error);
+                alert("Erro ao remover funcionário.");
+                });
+            }
+        });
+    });
+});
+</script>
 </body>
 </html>

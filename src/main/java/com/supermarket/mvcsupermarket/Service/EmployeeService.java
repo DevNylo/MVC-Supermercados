@@ -19,8 +19,16 @@ public class EmployeeService {
     }
 
     public void salvarFuncionario(Employee employee) {
-        // Lógica para salvar funcionário no banco de dados
         employeeRepository.save(employee);
+    }
+
+    public boolean deleteFuncionario(Integer id) {
+        if (employeeRepository.existsById(id)) {
+            employeeRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
