@@ -21,20 +21,20 @@ public class ProductController {
     public String listProducts(Model model) {
         List<Product> products = productService.listProduct();
         model.addAttribute("products", products);
-        return "pages/produtos"; // Certifique-se de que este é o nome correto do template
+        return "pages/produtos";
     }
 
     @PostMapping
     public String saveProduct(@ModelAttribute("product") Product product) {
         productService.salvarProduto(product);
-        return "redirect:/products"; // Redirecionar após salvar
+        return "redirect:/products";
     }
 
     @GetMapping("/search")
     public String searchProducts(@RequestParam("query") String query, Model model) {
         List<Product> products = productService.searchProducts(query);
         model.addAttribute("products", products);
-        return "pages/produtos"; // Certifique-se de que este é o nome correto do template
+        return "pages/produtos";
     }
 
     @DeleteMapping("/{id}")

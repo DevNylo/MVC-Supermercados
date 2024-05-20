@@ -27,9 +27,8 @@ public class EmployeeController {
 
     @PostMapping("/employee")
     public String cadastrarFuncionario(@ModelAttribute("employee") Employee employee) {
-        // Salvar funcionário no banco de dados usando o serviço FuncionarioService
         employeeService.salvarFuncionario(employee);
-        return "./pages/funcionario"; // Redirecionar para uma página de sucesso
+        return "./pages/funcionario";
     }
 
     @DeleteMapping("/employee/{id}")

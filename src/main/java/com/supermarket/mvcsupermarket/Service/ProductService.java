@@ -32,17 +32,14 @@ public class ProductService {
     }
     public List<Product> searchProducts(String query) {
         try {
-            // Tenta converter a consulta para um número (ID)
             int id = Integer.parseInt(query);
-            // Se a conversão for bem-sucedida, busca pelo ID
             Product product = productRepository.findById(id);
             if (product != null) {
                 return Collections.singletonList(product);
             } else {
-                return Collections.emptyList(); // Retorna uma lista vazia se o produto não for encontrado
+                return Collections.emptyList();
             }
         } catch (NumberFormatException e) {
-            // Se a conversão falhar, busca pelo nome ou descrição
             return productRepository.findByNomeContainingIgnoreCaseOrDescricaoContainingIgnoreCase(query, query);
         }
     }
