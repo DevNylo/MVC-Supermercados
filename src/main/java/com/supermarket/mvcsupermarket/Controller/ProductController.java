@@ -24,12 +24,6 @@ public class ProductController {
         return "pages/produtos";
     }
 
-    @PostMapping
-    public String saveProduct(@ModelAttribute("product") Product product) {
-        productService.salvarProduto(product);
-        return "redirect:/products";
-    }
-
     @GetMapping("/search")
     public String searchProducts(@RequestParam("query") String query, Model model) {
         List<Product> products = productService.searchProducts(query);
@@ -37,12 +31,21 @@ public class ProductController {
         return "pages/produtos";
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Integer id) {
-        if (productService.deleteProduct(id)) {
-            return ResponseEntity.noContent().build();
+    @PutMapping("/{id}")
+    public ResponseEntity<Product> updateProduct(@PathVariable Integer id, @RequestBody Product updatedProduct) {
+        Product existingProduct = productService.getProductById(id);
+        if (existingProduct != null) {
+            existingProduct.setNome(updatedProduct.getNome());
+            existingProduct.setDescricao(updatedProduct.getDescricao());
+            existingProduct.setPreco(updatedProduct.getPreco());
+            existingProduct.setSKU(updatedProduct.getSKU());
+            existingProduct.setFabricacao(updatedProduct.getFabricacao());
+
+            productService.salvarProduto(existingProduct);
+            return ResponseEntity.ok(existingProduct);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 }
+
