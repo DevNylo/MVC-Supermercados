@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -42,5 +43,27 @@ public class ProductService {
         } catch (NumberFormatException e) {
             return productRepository.findByNomeContainingIgnoreCaseOrDescricaoContainingIgnoreCase(query, query);
         }
+    }
+
+    public int countTotalProducts() {
+        return (int) productRepository.count();
+    }
+
+    public Product findHighestPricedProduct() {
+        return productRepository.findAll().stream()
+                .max(Comparator.comparing(Product::getPreco))
+                .orElse(null);
+    }
+
+    public Product findLowestPricedProduct() {
+        return productRepository.findAll().stream()
+                .min(Comparator.comparing(Product::getPreco))
+                .orElse(null);
+    }
+
+    public double calculateTotalStockValue() {
+        return productRepository.findAll().stream()
+                .mapToDouble(product -> Double.parseDouble(product.getPreco()))
+                .sum();
     }
 }
