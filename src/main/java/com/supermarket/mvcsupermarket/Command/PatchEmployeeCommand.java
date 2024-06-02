@@ -1,4 +1,4 @@
-package com.supermarket.mvcsupermarket.Configuration;
+package com.supermarket.mvcsupermarket.Command;
 
 import com.supermarket.mvcsupermarket.Service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;

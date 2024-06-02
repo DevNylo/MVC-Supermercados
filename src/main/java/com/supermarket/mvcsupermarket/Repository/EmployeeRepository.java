@@ -7,6 +7,5 @@ import java.util.List;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     Employee findById(long id);
-
     List<Employee> findByNomeContainingIgnoreCaseOrId(String nome, long id);
 }

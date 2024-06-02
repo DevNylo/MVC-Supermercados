@@ -1,7 +1,7 @@
 package com.supermarket.mvcsupermarket.Controller;
 
 import com.supermarket.mvcsupermarket.Command.AddEmployeeCommand;
-import com.supermarket.mvcsupermarket.Configuration.PatchEmployeeCommand;
+import com.supermarket.mvcsupermarket.Command.PatchEmployeeCommand;
 import com.supermarket.mvcsupermarket.Command.RemoveEmployeeCommand;
 import com.supermarket.mvcsupermarket.Entity.Employee;
 import com.supermarket.mvcsupermarket.Service.EmployeeService;
