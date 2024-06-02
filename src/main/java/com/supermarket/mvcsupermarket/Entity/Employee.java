@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 @Data
@@ -23,6 +24,9 @@ public class Employee {
     @NotBlank(message = "Data de nascimento é obrigatória")
     @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}", message = "Data de nascimento deve estar no formato yyyy-MM-dd")
     private String data_nascimento;
+
+    @CPF(message = "CPF inválido")
+    private String cpf;
 
     @NotBlank(message = "Cargo é obrigatório")
     private String cargo;
