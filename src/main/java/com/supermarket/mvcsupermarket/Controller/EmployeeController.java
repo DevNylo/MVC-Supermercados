@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
 
 
@@ -40,6 +39,27 @@ public class EmployeeController {
         List<Employee> employees = employeeService.listEmployee();
         model.addAttribute("employee", employees);
         return "./pages/funcionario";
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Employee> updateEmployee(@PathVariable Integer id, @RequestBody Employee updatedProduct) {
+        Employee existingEmployee = employeeService.getEmployeeById(id);
+        if (existingEmployee != null) {
+            existingEmployee.setNome(updatedProduct.getNome());
+            existingEmployee.setCargo(updatedProduct.getCargo());
+            existingEmployee.setCpf(updatedProduct.getCpf());
+            existingEmployee.setEndereco(updatedProduct.getEndereco());
+            existingEmployee.setData_contratacao(updatedProduct.getData_contratacao());
+            existingEmployee.setData_nascimento(updatedProduct.getData_nascimento());
+            existingEmployee.setDepartamento(updatedProduct.getDepartamento());
+            existingEmployee.setHorario_trabalho(updatedProduct.getHorario_trabalho());
+            existingEmployee.setSalario(updatedProduct.getSalario());
+
+            employeeService.salvarFuncionario(existingEmployee);
+            return ResponseEntity.ok(existingEmployee);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/employee/search")

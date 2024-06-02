@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -29,6 +28,11 @@ public class EmployeeService {
         } else {
             return false;
         }
+    }
+
+
+    public Employee getEmployeeById(Integer id) {
+        return employeeRepository.findById(id).orElse(null);
     }
 
     public List<Employee> searchEmployee(String query) {
