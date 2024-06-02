@@ -1,6 +1,7 @@
 package com.supermarket.mvcsupermarket.Controller;
 
 import com.supermarket.mvcsupermarket.Command.AddEmployeeCommand;
+import com.supermarket.mvcsupermarket.Command.RemoveEmployeeCommand;
 import com.supermarket.mvcsupermarket.Entity.Employee;
 import com.supermarket.mvcsupermarket.Entity.Product;
 import com.supermarket.mvcsupermarket.Service.EmployeeService;
@@ -22,6 +23,8 @@ public class EmployeeController {
     private EmployeeService employeeService;
     @Autowired
     private AddEmployeeCommand addEmployeeCommand;
+    @Autowired
+    private RemoveEmployeeCommand removeEmployeeCommand;
 
     @PostMapping("/employee")
     public String cadastrarFuncionario(@Valid @ModelAttribute("employee") Employee employee, BindingResult result) {
@@ -48,7 +51,7 @@ public class EmployeeController {
 
     @DeleteMapping("/employee/{id}")
     public ResponseEntity<Void> deleteEmployee(@PathVariable Integer id) {
-        if (employeeService.deleteFuncionario(id)) {
+        if (removeEmployeeCommand.execute(id)) {
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();

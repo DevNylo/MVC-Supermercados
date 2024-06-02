@@ -1,5 +1,7 @@
 package com.supermarket.mvcsupermarket.Controller;
 
+import com.supermarket.mvcsupermarket.Command.AddProductCommand;
+import com.supermarket.mvcsupermarket.Command.RemoveProductCommand;
 import com.supermarket.mvcsupermarket.Entity.Product;
 import com.supermarket.mvcsupermarket.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +18,14 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+    @Autowired
+    private RemoveProductCommand removeProductCommand;
+    @Autowired
+    private AddProductCommand addProductCommand;
 
     @PostMapping
     public String saveProduct(@ModelAttribute("product") Product product) {
-        productService.salvarProduto(product);
+        addProductCommand.execute(product);
         return "redirect:/products";
     }
 
@@ -56,7 +62,7 @@ public class ProductController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Integer id) {
-        if (productService.deleteProduct(id)) {
+        if (removeProductCommand.execute(id)) {
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
