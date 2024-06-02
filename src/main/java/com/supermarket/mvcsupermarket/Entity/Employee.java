@@ -1,99 +1,46 @@
 package com.supermarket.mvcsupermarket.Entity;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.util.Date;
+import jakarta.validation.constraints.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
 public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @NotBlank(message = "Nome é obrigatório")
     private String nome;
+
+    @NotBlank(message = "Data de nascimento é obrigatória")
+    @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}", message = "Data de nascimento deve estar no formato yyyy-MM-dd")
     private String data_nascimento;
+
+    @NotBlank(message = "Cargo é obrigatório")
     private String cargo;
+
+    @NotBlank(message = "Endereço é obrigatório")
     private String endereco;
+
+    @NotBlank(message = "Salário é obrigatório")
+    @Pattern(regexp = "\\d+\\.\\d{2}", message = "Salário deve estar no formato decimal, por exemplo, 1234.56")
     private String salario;
+
+    @NotBlank(message = "Departamento é obrigatório")
     private String departamento;
+
+    @NotBlank(message = "Data de contratação é obrigatória")
+    @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}", message = "Data de contratação deve estar no formato yyyy-MM-dd")
     private String data_contratacao;
+
+    @NotBlank(message = "Horário de trabalho é obrigatório")
     private String horario_trabalho;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getData_nascimento() {
-        return data_nascimento;
-    }
-
-    public void setData_nascimento(String data_nascimento) {
-        this.data_nascimento = data_nascimento;
-    }
-
-    public String getCargo() {
-        return cargo;
-    }
-
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public String getSalario() {
-        return salario;
-    }
-
-    public void setSalario(String salario) {
-        this.salario = salario;
-    }
-
-    public String getDepartamento() {
-        return departamento;
-    }
-
-    public void setDepartamento(String departamento) {
-        this.departamento = departamento;
-    }
-
-    public String getData_contratacao() {
-        return data_contratacao;
-    }
-
-    public void setData_contratacao(String data_contratacao) {
-        this.data_contratacao = data_contratacao;
-    }
-
-
-    public String getHorario_trabalho() {
-        return horario_trabalho;
-    }
-
-    public void setHorario_trabalho(String horario_trabalho) {
-        this.horario_trabalho = horario_trabalho;
-    }
 }

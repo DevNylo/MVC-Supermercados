@@ -17,6 +17,12 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @PostMapping
+    public String saveProduct(@ModelAttribute("product") Product product) {
+        productService.salvarProduto(product);
+        return "redirect:/products";
+    }
+
     @GetMapping
     public String listProducts(Model model) {
         List<Product> products = productService.listProduct();
@@ -43,6 +49,15 @@ public class ProductController {
 
             productService.salvarProduto(existingProduct);
             return ResponseEntity.ok(existingProduct);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Integer id) {
+        if (productService.deleteProduct(id)) {
+            return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
         }

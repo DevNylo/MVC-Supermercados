@@ -1,71 +1,36 @@
 package com.supermarket.mvcsupermarket.Entity;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.util.Date;
+import jakarta.validation.constraints.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @NotBlank(message = "Nome é obrigatório")
     private String nome;
+
+    @NotBlank(message = "Descrição é obrigatória")
     private String descricao;
+
+    @NotBlank(message = "Preço é obrigatório")
+    @Pattern(regexp = "\\d+\\.\\d{2}", message = "Preço deve estar no formato decimal, por exemplo, 1234.56")
     private String preco;
+
+    @NotBlank(message = "SKU é obrigatório")
     private String SKU;
+
+    @NotBlank(message = "Data de fabricação é obrigatória")
+    @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}", message = "Data de fabricação deve estar no formato yyyy-MM-dd")
     private String fabricacao;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public String getPreco() {
-        return preco;
-    }
-
-    public void setPreco(String preco) {
-        this.preco = preco;
-    }
-
-    public String getSKU() {
-        return SKU;
-    }
-
-    public void setSKU(String SKU) {
-        this.SKU = SKU;
-    }
-
-    public String getFabricacao() {
-        return fabricacao;
-    }
-
-    public void setFabricacao(String fabricacao) {
-        this.fabricacao = fabricacao;
-    }
 }

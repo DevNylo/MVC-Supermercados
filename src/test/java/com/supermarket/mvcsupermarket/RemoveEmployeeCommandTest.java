@@ -1,6 +1,6 @@
 package com.supermarket.mvcsupermarket;
 
-import com.supermarket.mvcsupermarket.Controller.RemoveEmployeeCommand;
+import com.supermarket.mvcsupermarket.Command.RemoveEmployeeCommand;
 import com.supermarket.mvcsupermarket.Service.EmployeeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

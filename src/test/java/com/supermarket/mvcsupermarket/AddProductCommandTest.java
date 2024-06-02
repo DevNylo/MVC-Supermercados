@@ -1,6 +1,6 @@
 package com.supermarket.mvcsupermarket;
 
-import com.supermarket.mvcsupermarket.Controller.AddProductCommand;
+import com.supermarket.mvcsupermarket.Command.AddProductCommand;
 import com.supermarket.mvcsupermarket.Entity.Product;
 import com.supermarket.mvcsupermarket.Service.ProductService;
 import org.junit.jupiter.api.BeforeEach;

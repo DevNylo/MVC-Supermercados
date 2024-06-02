@@ -18,6 +18,12 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
+    @PostMapping("/employee")
+    public String cadastrarFuncionario(@ModelAttribute("employee") Employee employee) {
+        employeeService.salvarFuncionario(employee);
+        return "./pages/funcionario";
+    }
+
     @GetMapping("/employee")
     public String listarFuncionarios(Model model) {
         List<Employee> employees = employeeService.listEmployee();
