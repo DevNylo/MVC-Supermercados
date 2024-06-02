@@ -99,12 +99,11 @@
         </tr>
         <tr th:each="employee : ${employee}">
             <td>
-                <img class="user-detail" src="/images/user-detail.svg" alt="Modificar usuário">
                 <img class="user-remove" src="/images/user-remove.svg" alt="Remover usuário" th:attr="data-id=${employee.id}">
             </td>
-            <td th:text="${employee.id}"></td>
-            <td th:text="${employee.nome}"></td>
-            <td th:text="${employee.data_nascimento}"></td>
+            <td class="employee-id" th:text="${employee.id}"></td>
+            <td class="editable" th:text="${employee.nome}" contenteditable="true"></td>
+            <td class="editable" th:text="${employee.data_nascimento}" contenteditable="true">></td>
             <td th:text="${employee.cpf}"></td>
             <td th:text="${employee.salario}"></td>
             <td th:text="${employee.cargo}"></td>
@@ -140,6 +139,44 @@
                 console.error("Erro:", error);
                 alert("Erro ao remover funcionário.");
                 });
+            }
+        });
+    });
+});
+    document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".editable").forEach(field => {
+        field.addEventListener("blur", function() {
+            const newValue = this.innerText.trim();
+            const employeeId = this.parentElement.querySelector(".employee-id").innerText.trim();
+
+            // Imprimir os dados antes de enviar a solicitação PATCH
+            console.log("ID do Funcionário:", employeeId);
+            console.log("Novo Nome:", newValue);
+
+            // Aqui você pode fazer uma solicitação AJAX para atualizar o nome do funcionário no backend
+            fetch(`/employee/${employeeId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'text/plain'
+                },
+                body: newValue
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log("Nome do funcionário atualizado com sucesso.");
+                } else {
+                    console.error("Erro ao atualizar nome do funcionário.");
+                }
+            })
+            .catch(error => {
+                console.error("Erro:", error);
+            });
+        });
+
+        field.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                this.blur();
             }
         });
     });

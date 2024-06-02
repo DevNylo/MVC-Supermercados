@@ -1,9 +1,9 @@
 package com.supermarket.mvcsupermarket.Controller;
 
 import com.supermarket.mvcsupermarket.Command.AddEmployeeCommand;
+import com.supermarket.mvcsupermarket.Configuration.PatchEmployeeCommand;
 import com.supermarket.mvcsupermarket.Command.RemoveEmployeeCommand;
 import com.supermarket.mvcsupermarket.Entity.Employee;
-import com.supermarket.mvcsupermarket.Entity.Product;
 import com.supermarket.mvcsupermarket.Service.EmployeeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +24,8 @@ public class EmployeeController {
     private AddEmployeeCommand addEmployeeCommand;
     @Autowired
     private RemoveEmployeeCommand removeEmployeeCommand;
+    @Autowired
+    private PatchEmployeeCommand patchEmployeeCommand;
 
     @PostMapping("/employee")
     public String cadastrarFuncionario(@Valid @ModelAttribute("employee") Employee employee, BindingResult result) {
@@ -41,22 +43,10 @@ public class EmployeeController {
         return "./pages/funcionario";
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Employee> updateEmployee(@PathVariable Integer id, @RequestBody Employee updatedProduct) {
-        Employee existingEmployee = employeeService.getEmployeeById(id);
-        if (existingEmployee != null) {
-            existingEmployee.setNome(updatedProduct.getNome());
-            existingEmployee.setCargo(updatedProduct.getCargo());
-            existingEmployee.setCpf(updatedProduct.getCpf());
-            existingEmployee.setEndereco(updatedProduct.getEndereco());
-            existingEmployee.setData_contratacao(updatedProduct.getData_contratacao());
-            existingEmployee.setData_nascimento(updatedProduct.getData_nascimento());
-            existingEmployee.setDepartamento(updatedProduct.getDepartamento());
-            existingEmployee.setHorario_trabalho(updatedProduct.getHorario_trabalho());
-            existingEmployee.setSalario(updatedProduct.getSalario());
-
-            employeeService.salvarFuncionario(existingEmployee);
-            return ResponseEntity.ok(existingEmployee);
+    @PatchMapping("/employee/{id}")
+    public ResponseEntity<Void> updateEmployeeName(@PathVariable long id, @RequestBody String newName) {
+        if (patchEmployeeCommand.execute(id, newName)) {
+            return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
         }

@@ -80,7 +80,6 @@
         </tr>
         <tr th:each="product : ${products}">
             <td>
-                <img class="user-detail" src="/images/user-detail.svg" alt="Modificar usuário">
                 <img class="user-remove" src="/images/user-remove.svg" alt="Remover usuário" th:attr="data-id=${product.id}">
             </td>
             <td th:text="${product.id}"></td>

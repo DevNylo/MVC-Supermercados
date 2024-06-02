@@ -21,7 +21,7 @@ public class EmployeeService {
         employeeRepository.save(employee);
     }
 
-    public boolean deleteFuncionario(Integer id) {
+    public boolean deleteFuncionario(long id) {
         if (employeeRepository.existsById(id)) {
             employeeRepository.deleteById(id);
             return true;
@@ -30,9 +30,16 @@ public class EmployeeService {
         }
     }
 
+    public boolean updateEmployeeName(long id, String newName) {
+        Employee employee = employeeRepository.findById(id);
 
-    public Employee getEmployeeById(Integer id) {
-        return employeeRepository.findById(id).orElse(null);
+        if (employee != null) {
+            employee.setNome(newName);
+            employeeRepository.save(employee);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public List<Employee> searchEmployee(String query) {
